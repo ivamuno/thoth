@@ -3396,6 +3396,90 @@
     qs "^6.9.4"
     react-use "^17.2.4"
 
+"@backstage/plugin-tech-insights-backend-module-jsonfc@^0.1.27":
+  version "0.1.27"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-tech-insights-backend-module-jsonfc/-/plugin-tech-insights-backend-module-jsonfc-0.1.27.tgz#14002afa41c1b815fecfc03920356e8e9ed0143f"
+  integrity sha512-B4NRDpCnoZtQRsJpEIAIQ+6K071qy5UTWj0TdJLpABZPK2xAzzkCZN4V+IGcdtGryZ4hJ97NEx/LDK4d45A68A==
+  dependencies:
+    "@backstage/backend-common" "^0.18.3"
+    "@backstage/config" "^1.0.7"
+    "@backstage/errors" "^1.1.5"
+    "@backstage/plugin-tech-insights-common" "^0.2.10"
+    "@backstage/plugin-tech-insights-node" "^0.4.1"
+    ajv "^8.10.0"
+    json-rules-engine "^6.1.2"
+    lodash "^4.17.21"
+    luxon "^3.0.0"
+    winston "^3.2.1"
+
+"@backstage/plugin-tech-insights-backend@^0.5.9":
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-tech-insights-backend/-/plugin-tech-insights-backend-0.5.9.tgz#13253f7f3807055c7f3ff110c6d346584475fac1"
+  integrity sha512-1y2PSAsMlgqxVmyIZOMkeE9Xt6uRDSjzQsEWKMFnFrXKttjVJ8lGyDkixLQef8jTkt81BqIoP7K2tHSWzIvvPA==
+  dependencies:
+    "@backstage/backend-common" "^0.18.3"
+    "@backstage/backend-tasks" "^0.5.0"
+    "@backstage/catalog-client" "^1.4.0"
+    "@backstage/catalog-model" "^1.2.1"
+    "@backstage/config" "^1.0.7"
+    "@backstage/errors" "^1.1.5"
+    "@backstage/plugin-tech-insights-common" "^0.2.10"
+    "@backstage/plugin-tech-insights-node" "^0.4.1"
+    "@backstage/types" "^1.0.2"
+    "@types/express" "^4.17.6"
+    "@types/luxon" "^3.0.0"
+    express "^4.17.1"
+    express-promise-router "^4.1.0"
+    knex "^2.0.0"
+    lodash "^4.17.21"
+    luxon "^3.0.0"
+    semver "^7.3.5"
+    uuid "^8.3.2"
+    winston "^3.2.1"
+    yn "^4.0.0"
+
+"@backstage/plugin-tech-insights-common@^0.2.10":
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-tech-insights-common/-/plugin-tech-insights-common-0.2.10.tgz#48af9243b5c32287579c66e2628efe60b583f16a"
+  integrity sha512-bvu/Ph4cVR1h97TDuvtaIhxYQiPvE8e86pjthX2aJg9EaD5d+yf14sYFv4iJakWr+bwfdNiJfirRbTWoIUbbyw==
+  dependencies:
+    "@backstage/types" "^1.0.2"
+    "@types/luxon" "^3.0.0"
+    luxon "^3.0.0"
+
+"@backstage/plugin-tech-insights-node@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-tech-insights-node/-/plugin-tech-insights-node-0.4.1.tgz#24d959125c3be3ec8287c52de4b4a096a77927cf"
+  integrity sha512-1Do4EHHNYQ2s5q4TEePKZC2nH5DxJeaRZeX4bWG3GtoRqy1C69ch8uoyyQBeWOtelDio28DdhhYygb2NfPu7wg==
+  dependencies:
+    "@backstage/backend-common" "^0.18.3"
+    "@backstage/backend-tasks" "^0.5.0"
+    "@backstage/config" "^1.0.7"
+    "@backstage/plugin-tech-insights-common" "^0.2.10"
+    "@backstage/types" "^1.0.2"
+    "@types/luxon" "^3.0.0"
+    luxon "^3.0.0"
+    winston "^3.2.1"
+
+"@backstage/plugin-tech-insights@^0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-tech-insights/-/plugin-tech-insights-0.3.8.tgz#eec0660d0546f84024f5a1e8bf33a925593632d7"
+  integrity sha512-C+UQ70fUlYZFgLTkYjH1iMsU7APJgjtXAfuIkJwDtAmHL3OX5c/63cujPBPj4bdWSq1TwTnKWtOPaLKiaKIziA==
+  dependencies:
+    "@backstage/catalog-model" "^1.2.1"
+    "@backstage/core-components" "^0.12.5"
+    "@backstage/core-plugin-api" "^1.5.0"
+    "@backstage/errors" "^1.1.5"
+    "@backstage/plugin-catalog-react" "^1.4.0"
+    "@backstage/plugin-tech-insights-common" "^0.2.10"
+    "@backstage/theme" "^0.2.18"
+    "@backstage/types" "^1.0.2"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.57"
+    qs "^6.9.4"
+    react-use "^17.2.4"
+
 "@backstage/plugin-tech-radar@^0.6.2":
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-tech-radar/-/plugin-tech-radar-0.6.2.tgz#0e74198d411294f15cf59aed66f1787163d390e3"
@@ -7250,7 +7334,7 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-dom@*", "@types/react-dom@<18.0.0", "@types/react-dom@^17":
+"@types/react-dom@*", "@types/react-dom@<18.0.0":
   version "17.0.19"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.19.tgz#36feef3aa35d045cacd5ed60fe0eef5272f19492"
   integrity sha512-PiYG40pnQRdPHnlf7tZnp0aQ6q9tspYr72vD61saO6zFCybLfMqwUCN0va1/P+86DXn18ZWeW30Bk7xlC5eEAQ==
@@ -8022,6 +8106,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@backstage/plugin-scaffolder" "^1.12.0"
     "@backstage/plugin-search" "^1.1.1"
     "@backstage/plugin-search-react" "^1.5.1"
+    "@backstage/plugin-tech-insights" "^0.3.8"
     "@backstage/plugin-tech-radar" "^0.6.2"
     "@backstage/plugin-techdocs" "^1.6.0"
     "@backstage/plugin-techdocs-module-addons-contrib" "^1.0.11"
@@ -9246,7 +9331,7 @@ clone-response@^1.0.2:
   dependencies:
     mimic-response "^1.0.0"
 
-clone@2.x:
+clone@2.x, clone@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
   integrity sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==
@@ -11400,7 +11485,7 @@ event-target-shim@^5.0.0:
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
-eventemitter2@^6.4.3:
+eventemitter2@^6.4.3, eventemitter2@^6.4.4:
   version "6.4.9"
   resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-6.4.9.tgz#41f2750781b4230ed58827bc119d293471ecb125"
   integrity sha512-JEPTiaOt9f04oa6NOkc4aH+nVp5I3wEjpHbIPqfgCdD5v5bUzy7xQqwcVO2aDQgOWhI28da57HksMrzK9HlRxg==
@@ -12590,6 +12675,11 @@ hash-base@^3.0.0:
     inherits "^2.0.4"
     readable-stream "^3.6.0"
     safe-buffer "^5.2.0"
+
+hash-it@^5.0.0:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/hash-it/-/hash-it-5.0.2.tgz#8cc981944964a5124f74f1065af0c0a5d182d556"
+  integrity sha512-csU3E/a9QEmEgPPxoShVuMcFWM329IGioEPRvYVBv3r5BFrU8pCfnk3jGEVvriAcwqd+nl6KsNhPPjg8MUzkhQ==
 
 hash.js@^1.0.0, hash.js@^1.0.3:
   version "1.1.7"
@@ -14264,6 +14354,17 @@ json-pointer@0.6.2:
   dependencies:
     foreach "^2.0.4"
 
+json-rules-engine@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/json-rules-engine/-/json-rules-engine-6.1.2.tgz#574ef455c10973fd5de07ea8414cbb72bb84d10f"
+  integrity sha512-+rtKuJ33HAvFywL9broh42FA9hkZNmS0l1DmgjP7nfGJ9E2i2IsfNH0BcXjyXianp/bXAyYlsSv308AfTuvBwQ==
+  dependencies:
+    clone "^2.1.2"
+    eventemitter2 "^6.4.4"
+    hash-it "^5.0.0"
+    jsonpath-plus "^5.0.7"
+    lodash.isobjectlike "^4.0.0"
+
 json-schema-compare@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/json-schema-compare/-/json-schema-compare-0.2.2.tgz#dd601508335a90c7f4cfadb6b2e397225c908e56"
@@ -14370,6 +14471,11 @@ jsonparse@^1.2.0, jsonparse@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/jsonparse/-/jsonparse-1.3.1.tgz#3f4dae4a91fac315f71062f8521cc239f1366280"
   integrity sha512-POQXvpdL69+CluYsillJ7SUhKvytYjW9vG/GKpnf+xP8UWgYEM/RaMzHHofbALDiKbbP1W8UEYmgGl39WkPZsg==
+
+jsonpath-plus@^5.0.7:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/jsonpath-plus/-/jsonpath-plus-5.1.0.tgz#2fc4b2e461950626c98525425a3a3518b85af6c3"
+  integrity sha512-890w2Pjtj0iswAxalRlt2kHthi6HKrXEfZcn+ZNZptv7F3rUGIeDuZo+C+h4vXBHLEsVjJrHeCm35nYeZLzSBQ==
 
 jsonpath-plus@^7.2.0:
   version "7.2.0"
@@ -14865,6 +14971,11 @@ lodash.ismatch@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.ismatch/-/lodash.ismatch-4.4.0.tgz#756cb5150ca3ba6f11085a78849645f188f85f37"
   integrity sha512-fPMfXjGQEV9Xsq/8MTSgUf255gawYRbjwMyDbcvDhXgV7enSZA0hynz6vMPnpAb5iONEzBHBPsT+0zes5Z301g==
+
+lodash.isobjectlike@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/lodash.isobjectlike/-/lodash.isobjectlike-4.0.0.tgz#742c5fc65add27924d3d24191681aa9a17b2b60d"
+  integrity sha512-bbRt0Dief0yqjkTgpvzisSxnsmY3ZgVJvokHL30UE+ytsvnpNfiNaCJL4XBEWek8koQmrwZidBHb7coXC5vXlA==
 
 lodash.isplainobject@^4.0.6:
   version "4.0.6"

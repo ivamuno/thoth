@@ -56,6 +56,7 @@ import {
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { ThothCaContent } from '@internal/plugin-thoth-ca';
+import { EntityTechInsightsScorecardCard } from '@backstage/plugin-tech-insights';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -134,6 +135,13 @@ const overviewContent = (
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
+    <Grid item md={8} xs={12}>
+      <EntityTechInsightsScorecardCard
+        title="Customized title for the scorecard"
+        description="Small description about scorecards"
+        checksId={['titleCheck']}
+      />
+    </Grid>
   </Grid>
 );
 
@@ -149,6 +157,41 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/ca" title="CA">
       {caContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/tech-insights" title="Tech Insights">
+      <Grid container spacing={3} alignItems="stretch">
+        <EntityTechInsightsScorecardCard
+          title="Service Ownership"
+          description="Small description about Service Ownership"
+          //checksId={}
+        />
+        <EntityTechInsightsScorecardCard
+          title="Security"
+          description="Small description about Security"
+          //checksId={}
+        />
+        <EntityTechInsightsScorecardCard
+          title="Reliability"
+          description="Small description about Reliability"
+          //checksId={}
+        />
+        <EntityTechInsightsScorecardCard
+          title="Observability"
+          description="Small description about Observability"
+          //checksId={}
+        />
+        <EntityTechInsightsScorecardCard
+          title="Documentation"
+          description="Small description about Documentation"
+          //checksId={}
+        />
+        <EntityTechInsightsScorecardCard
+          title="Quality"
+          description="Small description about Quality"
+          //checksId={}
+        />
+      </Grid>
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/api" title="API">
