@@ -24,8 +24,8 @@ Thoth is an app to expose a service catalog.
   - [ ] GitHub (check more plugins)
   - [ ] Grafana
   - [ ] Ansible Semaphore plugin (third-party API plugin)
-- [ ] Tech Insights (component)
-  - [ ] Basic (component)
+- [ ] Tech Insights
+  - [X] Basic (component)
   - [ ] SonarQube/SonarCloud Insights
   - [ ] GitHub Insights
   - [ ] Maturity report (page)

@@ -1,1 +1,0 @@
-export { CaReportComponent } from './CaReportComponent';
