@@ -22,3 +22,9 @@ To start the app, run:
 yarn install
 yarn dev
 ```
+
+Using Docker
+
+```bash
+./run.sh
+```

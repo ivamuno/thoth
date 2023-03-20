@@ -29,7 +29,7 @@ yarn start
 If you want to override any configuration locally, for example adding any secrets,
 you can do so in `app-config.local.yaml`.
 
-The backend starts up on port 7007 per default.
+The backend starts up on port 7000 per default.
 
 ## Populating The Catalog
 
