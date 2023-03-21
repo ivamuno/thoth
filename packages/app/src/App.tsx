@@ -35,6 +35,8 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPage } from '@backstage/core-components';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { customTheme } from './theme/customTheme';
 
 const app = createApp({
   apis,
@@ -67,6 +69,16 @@ const app = createApp({
       />
     ),
   },
+  themes: [{
+    id: 'customTheme',
+    title: 'Custom Theme',
+    variant: 'dark',
+    Provider: ({ children }) => (
+      <ThemeProvider theme={customTheme}>
+        <CssBaseline>{children}</CssBaseline>
+      </ThemeProvider>
+    ),
+  }]
 });
 
 const routes = (
