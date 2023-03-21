@@ -22,7 +22,7 @@ export async function startStandaloneServer(
     .setPort(options.port)
     .addRouter('/thoth-ca', router);
   if (options.enableCors) {
-    service = service.enableCors({ origin: 'http://localhost:3000' });
+    service = service.enableCors({ origin: 'http://localhost:7000' });
   }
 
   return await service.start().catch(err => {
