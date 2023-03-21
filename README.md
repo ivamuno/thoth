@@ -13,7 +13,7 @@ Thoth is an app to expose a service catalog.
 - [x] Custom theme
 - [ ] SonarQube plugin
 - [x] OpenAPI and AsyncAPI
-- [ ] TechDocs
+- [x] TechDocs
 - [ ] ADRs
 - [ ] Integration with Grafana
 - [ ] C4 diagrams or other architecture diagrams
