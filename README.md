@@ -4,15 +4,22 @@ Thoth is an app to expose a service catalog.
 
 ## Features
 
-* Documentation:
-  * OpenAPI and AsyncAPI specifications using Redoc for a set of APIs acting as developer portal.
-  * Markdown files inside service path in the repo.
-  * Service summary
-  * Service tooling (List including name + link to external resource. OOS: Deploys and Alerts)
-* Continuous auditing.
-* Maturity reports.
-* Dependency Graph.
-* Campaigns.
+- [x] Dockerization
+- [x] PostgreSQL
+- [x] Sign-in with GitHub
+- [x] GitHub organization sync
+- [ ] Tech Insights (component)
+- [ ] Tech Insights maturity report (page)
+- [ ] Custom theme
+- [ ] SonarQube plugin
+- [ ] OpenAPI and AsyncAPI
+- [ ] TechDocs
+- [ ] ADRs
+- [ ] Integration with Grafana
+- [ ] C4 diagrams or other architecture diagrams
+- [ ] Service custom metadata (PCI, PII, type of software, etc.)
+- [ ] Tech Insights campaigns
+- [ ] Ansible Semaphore plugin (third-party API plugin)
 
 ## Getting Started
 
@@ -23,7 +30,7 @@ yarn install
 yarn dev
 ```
 
-Using Docker
+Using Docker:
 
 ```bash
 ./run.sh
