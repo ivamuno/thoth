@@ -57,6 +57,7 @@ import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { ThothCaContent } from '@internal/plugin-thoth-ca';
 import { EntityTechInsightsScorecardCard } from '@backstage/plugin-tech-insights';
+import { EntitySonarQubeCard } from '@backstage/plugin-sonarqube';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -135,12 +136,8 @@ const overviewContent = (
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
-    <Grid item md={8} xs={12}>
-      <EntityTechInsightsScorecardCard
-        title="Customized title for the scorecard"
-        description="Small description about scorecards"
-        checksId={['titleCheck']}
-      />
+    <Grid item md={6}>
+      <EntitySonarQubeCard variant="gridItem" />
     </Grid>
   </Grid>
 );

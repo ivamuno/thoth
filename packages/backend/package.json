@@ -33,6 +33,7 @@
     "@backstage/plugin-search-backend": "^1.2.4",
     "@backstage/plugin-search-backend-module-pg": "^0.5.4",
     "@backstage/plugin-search-backend-node": "^1.1.4",
+    "@backstage/plugin-sonarqube-backend": "^0.1.8",
     "@backstage/plugin-tech-insights-backend": "^0.5.9",
     "@backstage/plugin-tech-insights-backend-module-jsonfc": "^0.1.27",
     "@backstage/plugin-tech-insights-node": "^0.4.1",

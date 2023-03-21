@@ -37,6 +37,7 @@
     "@backstage/plugin-scaffolder": "^1.12.0",
     "@backstage/plugin-search": "^1.1.1",
     "@backstage/plugin-search-react": "^1.5.1",
+    "@backstage/plugin-sonarqube": "^0.6.5",
     "@backstage/plugin-tech-insights": "^0.3.8",
     "@backstage/plugin-tech-radar": "^0.6.2",
     "@backstage/plugin-techdocs": "^1.6.0",

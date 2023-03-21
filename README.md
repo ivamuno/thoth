@@ -11,7 +11,7 @@ Thoth is an app to expose a service catalog.
 - [ ] Tech Insights (component)
 - [ ] Tech Insights maturity report (page)
 - [x] Custom theme
-- [ ] SonarQube plugin
+- [x] SonarQube plugin
 - [x] OpenAPI and AsyncAPI
 - [x] TechDocs
 - [ ] ADRs
