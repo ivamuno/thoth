@@ -33,6 +33,7 @@ import { PluginEnvironment } from './types';
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
 import techInsights from './plugins/techInsights';
+import sonarqube from './plugins/sonarqube';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -89,6 +90,7 @@ async function main() {
   const appEnv = useHotMemoize(module, () => createEnv('app'));
   const thothEnv = useHotMemoize(module, () => createEnv('thoth'));
   const techInsightsEnv = useHotMemoize(module, () => createEnv('tech_insights'));
+  const sonarqubeEnv = useHotMemoize(module, () => createEnv('sonarqube'));
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
@@ -99,6 +101,7 @@ async function main() {
   apiRouter.use('/search', await search(searchEnv));
   apiRouter.use('/thoth', await thoth(thothEnv));
   apiRouter.use('/tech-insights', await techInsights(techInsightsEnv));
+  apiRouter.use('/sonarqube', await sonarqube(sonarqubeEnv));
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());

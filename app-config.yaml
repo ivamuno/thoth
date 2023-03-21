@@ -96,3 +96,9 @@ catalog:
         filters:
           branch: 'main' # string
           repository: '.*' # Regex
+
+sonarqube:
+  instances:
+    - name: ivamuno-backstage
+      baseUrl: https://sonarcloud.io
+      apiKey: acada48bb07e1e75f81385261182d11032f59219
