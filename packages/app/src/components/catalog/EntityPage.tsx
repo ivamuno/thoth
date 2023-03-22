@@ -54,7 +54,7 @@ import {
 } from '@backstage/catalog-model';
 
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
-import { ExpandableNavigation, LightBox, ReportIssue, TextSize } from '@backstage/plugin-techdocs-module-addons-contrib';
+import { ExpandableNavigation, LightBox, ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { ThothCaContent } from '@internal/plugin-thoth-ca';
 import { EntityTechInsightsScorecardCard } from '@backstage/plugin-tech-insights';
 import { EntitySonarQubeCard } from '@backstage/plugin-sonarqube';
@@ -65,7 +65,6 @@ const techdocsContent = (
     <TechDocsAddons>
       <ExpandableNavigation />
       <ReportIssue />
-      <TextSize />
       <LightBox />
     </TechDocsAddons>
   </EntityTechdocsContent>
