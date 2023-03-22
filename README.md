@@ -15,7 +15,8 @@ Thoth is an app to expose a service catalog.
 - [ ] Documentation
   - [x] OpenAPI and AsyncAPI
   - [x] TechDocs
-  - [ ] ADRs
+  - [x] ADRs
+  - [x] Common docs (including common ADRs)
   - [ ] C4 diagrams or other architecture diagrams
 - [ ] Integrations
   - [x] SonarQube
@@ -30,6 +31,12 @@ Thoth is an app to expose a service catalog.
   - [ ] Maturity report (page)
   - [ ] Campaigns
 - [ ] Service custom metadata (PCI, PII, type of software, etc.)
+- [ ] Templates
+  - [ ] .NET
+- [ ] Do not allow register/unregister entities manually
+- [ ] Groups and users
+- [ ] Domains and systems
+- [ ] Explorer
 
 ## Getting Started
 

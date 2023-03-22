@@ -54,15 +54,18 @@ import {
 } from '@backstage/catalog-model';
 
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
-import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
+import { ExpandableNavigation, LightBox, ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { ThothCaContent } from '@internal/plugin-thoth-ca';
 import { EntityTechInsightsScorecardCard } from '@backstage/plugin-tech-insights';
 import { EntitySonarQubeCard } from '@backstage/plugin-sonarqube';
+import { EntityAdrContent, isAdrAvailable } from '@backstage/plugin-adr';
 
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
+      <ExpandableNavigation />
       <ReportIssue />
+      <LightBox />
     </TechDocsAddons>
   </EntityTechdocsContent>
 );
@@ -216,6 +219,10 @@ const serviceEntityPage = (
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
+
+    <EntityLayout.Route if={isAdrAvailable} path="/adrs" title="ADRs">
+      <EntityAdrContent />
+    </EntityLayout.Route>
   </EntityLayout>
 );
 
@@ -242,6 +249,26 @@ const websiteEntityPage = (
 
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
+    </EntityLayout.Route>
+    
+    <EntityLayout.Route if={isAdrAvailable} path="/adrs" title="ADRs">
+      <EntityAdrContent />
+    </EntityLayout.Route>
+  </EntityLayout>
+);
+
+const libraryEntityPage = (
+  <EntityLayout>
+    <EntityLayout.Route path="/" title="Overview">
+      {overviewContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/docs" title="Docs">
+      {techdocsContent}
+    </EntityLayout.Route>
+    
+    <EntityLayout.Route path="/adrs" title="ADRs">
+      <EntityAdrContent />
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -273,6 +300,10 @@ const componentPage = (
 
     <EntitySwitch.Case if={isComponentType('website')}>
       {websiteEntityPage}
+    </EntitySwitch.Case>
+
+    <EntitySwitch.Case if={isComponentType('library')}>
+      {libraryEntityPage}
     </EntitySwitch.Case>
 
     <EntitySwitch.Case>{defaultEntityPage}</EntitySwitch.Case>
