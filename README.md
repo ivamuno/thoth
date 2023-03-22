@@ -15,11 +15,17 @@ Thoth is an app to expose a service catalog.
 - [x] OpenAPI and AsyncAPI
 - [x] TechDocs
 - [x] ADRs
+- [x] Common docs (including common ADRs)
 - [ ] Integration with Grafana
 - [ ] C4 diagrams or other architecture diagrams
 - [ ] Service custom metadata (PCI, PII, type of software, etc.)
 - [ ] Tech Insights campaigns
 - [ ] Ansible Semaphore plugin (third-party API plugin)
+- [ ] .NET template
+- [ ] Do not allow register/unregister entities manually
+- [ ] Groups and users
+- [ ] Domains and systems
+- [ ] Explorer
 
 ## Getting Started
 
