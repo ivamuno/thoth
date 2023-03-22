@@ -2764,6 +2764,58 @@
     lodash "^4.17.21"
     luxon "^3.0.0"
 
+"@backstage/plugin-adr-backend@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr-backend/-/plugin-adr-backend-0.3.1.tgz#64e5f4e143da8dfb83fd6e48712f0e0de06770d5"
+  integrity sha512-zritF10X4jB9ePQSQ6FKHlDyf37fEYZNgw6AcaG4UJC64wpvDVu2hSubxe7T/1GFVBRL/B5sewxpWG95LvCerg==
+  dependencies:
+    "@backstage/backend-common" "^0.18.3"
+    "@backstage/catalog-client" "^1.4.0"
+    "@backstage/catalog-model" "^1.2.1"
+    "@backstage/config" "^1.0.7"
+    "@backstage/errors" "^1.1.5"
+    "@backstage/integration" "^1.4.3"
+    "@backstage/plugin-adr-common" "^0.2.7"
+    "@backstage/plugin-search-common" "^1.2.2"
+    "@types/express" "^4.17.6"
+    express "^4.17.1"
+    express-promise-router "^4.1.0"
+    luxon "^3.0.0"
+    marked "^4.0.14"
+    node-fetch "^2.6.5"
+    winston "^3.2.1"
+    yn "^4.0.0"
+
+"@backstage/plugin-adr-common@^0.2.7":
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr-common/-/plugin-adr-common-0.2.7.tgz#886e7b272adb4d34974f4cbe5c8ad187e77b4548"
+  integrity sha512-1/3YiDhsK+CSZrxG08b4V3YbPMpZ7cJUAlj2fViGTFtbYKXDgyUV4O26vFtHKme2QTAu0eI5+bjgr4zYRaCSrA==
+  dependencies:
+    "@backstage/catalog-model" "^1.2.1"
+    "@backstage/integration" "^1.4.3"
+    "@backstage/plugin-search-common" "^1.2.2"
+
+"@backstage/plugin-adr@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr/-/plugin-adr-0.4.1.tgz#355abb883274a55bf625958a43c2d438e0dd3702"
+  integrity sha512-h7qxhLZjV91ntbacczUB3AJDRTtCtUthaAmG5kbFsCBxiieN/7qp4xgs9gzOKFjIpO7VHwBPwv4J/Oy+om2IHw==
+  dependencies:
+    "@backstage/catalog-model" "^1.2.1"
+    "@backstage/core-components" "^0.12.5"
+    "@backstage/core-plugin-api" "^1.5.0"
+    "@backstage/integration-react" "^1.1.11"
+    "@backstage/plugin-adr-common" "^0.2.7"
+    "@backstage/plugin-catalog-react" "^1.4.0"
+    "@backstage/plugin-search-common" "^1.2.2"
+    "@backstage/plugin-search-react" "^1.5.1"
+    "@backstage/theme" "^0.2.18"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.57"
+    react-markdown "^8.0.0"
+    react-use "^17.2.4"
+    remark-gfm "^3.0.1"
+
 "@backstage/plugin-api-docs@^0.9.1":
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-api-docs/-/plugin-api-docs-0.9.1.tgz#455298d045d9cf8fa24a99b35902b5299a058ce6"
@@ -8170,6 +8222,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@backstage/core-components" "^0.12.5"
     "@backstage/core-plugin-api" "^1.5.0"
     "@backstage/integration-react" "^1.1.11"
+    "@backstage/plugin-adr" "^0.4.1"
     "@backstage/plugin-api-docs" "^0.9.1"
     "@backstage/plugin-catalog" "^1.9.0"
     "@backstage/plugin-catalog-common" "^1.0.12"
@@ -16343,7 +16396,7 @@ node-fetch@2.6.7:
   dependencies:
     whatwg-url "^5.0.0"
 
-node-fetch@^2.6.0, node-fetch@^2.6.1, node-fetch@^2.6.7:
+node-fetch@^2.6.0, node-fetch@^2.6.1, node-fetch@^2.6.5, node-fetch@^2.6.7:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.9.tgz#7c7f744b5cc6eb5fd404e0c7a9fec630a55657e6"
   integrity sha512-DJm/CJkZkRjKKj4Zi4BsKVZh3ValV5IR5s7LVZnW+6YMh0W1BfNA8XSs6DLMGYlId5F3KnA70uu2qepcR08Qqg==

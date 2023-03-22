@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
+import { makeStyles, Theme, Grid, List, Paper } from '@material-ui/core';
 
 import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
 import {
@@ -10,10 +10,11 @@ import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
 
 import { SearchType } from '@backstage/plugin-search';
 import {
+  DefaultResultListItem,
   SearchBar,
   SearchFilter,
   SearchResult,
-  SearchPagination,
+  SearchResultPager,
   useSearch,
 } from '@backstage/plugin-search-react';
 import {
@@ -24,6 +25,8 @@ import {
   Page,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
+import { AdrSearchResultListItem } from '@backstage/plugin-adr';
+import { AdrDocument } from '@backstage/plugin-adr-common';
 
 const useStyles = makeStyles((theme: Theme) => ({
   bar: {
@@ -70,6 +73,11 @@ const SearchPage = () => {
                   name: 'Documentation',
                   icon: <DocsIcon />,
                 },
+                {
+                  value: 'adr',
+                  name: 'Architecture Decision Records',
+                  icon: <DocsIcon />,
+                },
               ]}
             />
             <Paper className={classes.filters}>
@@ -109,11 +117,53 @@ const SearchPage = () => {
             </Paper>
           </Grid>
           <Grid item xs={9}>
-            <SearchPagination />
             <SearchResult>
-              <CatalogSearchResultListItem icon={<CatalogIcon />} />
-              <TechDocsSearchResultListItem icon={<DocsIcon />} />
+              {({ results }) => (
+                <List>
+                  {results.map(({ type, document, highlight, rank }) => {
+                    switch (type) {
+                      case 'software-catalog':
+                        return (
+                          <CatalogSearchResultListItem
+                            key={document.location}
+                            result={document}
+                            highlight={highlight}
+                            rank={rank}
+                          />
+                        );
+                      case 'techdocs':
+                        return (
+                          <TechDocsSearchResultListItem
+                            key={document.location}
+                            result={document}
+                            highlight={highlight}
+                            rank={rank}
+                          />
+                        );
+                      case 'adr':
+                        return (
+                          <AdrSearchResultListItem
+                            key={document.location}
+                            // Not required if you're leveraging the new search results extensions available in v1.11+
+                            // https://backstage.io/docs/features/search/how-to-guides#2-using-an-extension-in-your-backstage-app
+                            result={document as AdrDocument}
+                          />
+                        );
+                      default:
+                        return (
+                          <DefaultResultListItem
+                            key={document.location}
+                            result={document}
+                            highlight={highlight}
+                            rank={rank}
+                          />
+                        );
+                    }
+                  })}
+                </List>
+              )}
             </SearchResult>
+            <SearchResultPager />
           </Grid>
         </Grid>
       </Content>
