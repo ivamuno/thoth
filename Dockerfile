@@ -57,8 +57,9 @@ FROM node:16-bullseye-slim
 RUN apt-get update && apt-get install -y python3 python3-pip
 # Dependencies for mkdocs-kroki-plugin
 RUN apt-get update && apt-get install -y gcc musl-dev curl graphviz fonts-dejavu fontconfig openjdk-11-jdk
-RUN pip3 install mkdocs-techdocs-core==1.1.7
-RUN pip3 install mkdocs-kroki-plugin
+RUN pip3 install mkdocs-techdocs-core==1.1.*
+RUN pip3 install mkdocs-kroki-plugin==0.6.*
+RUN pip3 install mkdocs-literate-nav==0.6.*
 
 # From here on we use the least-privileged `node` user to run the backend.
 USER node
