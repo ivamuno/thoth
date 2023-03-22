@@ -58,6 +58,7 @@ import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { ThothCaContent } from '@internal/plugin-thoth-ca';
 import { EntityTechInsightsScorecardCard } from '@backstage/plugin-tech-insights';
 import { EntitySonarQubeCard } from '@backstage/plugin-sonarqube';
+import { EntityAdrContent, isAdrAvailable } from '@backstage/plugin-adr';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -215,6 +216,10 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route if={isAdrAvailable} path="/adrs" title="ADRs">
+      <EntityAdrContent />
     </EntityLayout.Route>
   </EntityLayout>
 );
