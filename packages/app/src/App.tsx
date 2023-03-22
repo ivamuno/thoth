@@ -37,7 +37,7 @@ import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPage } from '@backstage/core-components';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import { customTheme } from './theme/customTheme';
+import { customDarkTheme, customLightTheme } from './theme/customTheme';
 
 const app = createApp({
   apis,
@@ -71,11 +71,20 @@ const app = createApp({
     ),
   },
   themes: [{
-    id: 'customTheme',
-    title: 'Custom Theme',
+    id: 'customLightTheme',
+    title: 'Light Theme',
+    variant: 'light',
+    Provider: ({ children }) => (
+      <ThemeProvider theme={customLightTheme}>
+        <CssBaseline>{children}</CssBaseline>
+      </ThemeProvider>
+    ),
+  },{
+    id: 'customDarkTheme',
+    title: 'Dark Theme',
     variant: 'dark',
     Provider: ({ children }) => (
-      <ThemeProvider theme={customTheme}>
+      <ThemeProvider theme={customDarkTheme}>
         <CssBaseline>{children}</CssBaseline>
       </ThemeProvider>
     ),

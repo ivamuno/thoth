@@ -1,8 +1,10 @@
 import { BackstageOverrides } from '@backstage/core-components';
 import {
+  BackstagePalette,
   BackstageTheme,
   createTheme,
   genPageTheme,
+  darkTheme,
   lightTheme,
   shapes,
 } from '@backstage/theme';
@@ -12,17 +14,17 @@ const vividOrange = '#F15A29';
 const blue = '#253F66';
 const gradient = [sweetOrange, vividOrange];
 
-const baseTheme = createTheme({
+const simpleThemeOptions = (palette: BackstagePalette) => ({
   palette: {
-    ...lightTheme.palette,
+    ...palette,
     navigation: {
       background: blue,
       indicator: vividOrange,
       color: 'white',
       selectedColor: vividOrange,
       navItem: {
-        hoverBackground: 'rgba(0, 0, 0, 0.2);'
-      }
+        hoverBackground: 'rgba(0, 0, 0, 0.2);',
+      },
     },
   },
   defaultPageTheme: 'home',
@@ -42,20 +44,32 @@ const baseTheme = createTheme({
 });
 
 const createCustomThemeOverrides = (): BackstageOverrides => {
+  const fontFamily = 'Montserrat, sans-serif;';
   return {
     BackstageHeader: {
-      title: {
-        fontFamily: 'Montserrat, sans-serif;'
-      }
+      title: { fontFamily },
+      subtitle: { fontFamily },
     },
   };
 };
 
-export const customTheme: BackstageTheme = {
-  ...baseTheme,
+const baseLightTheme = createTheme(simpleThemeOptions(lightTheme.palette));
+export const customLightTheme: BackstageTheme = {
+  ...baseLightTheme,
   overrides: {
     // These are the overrides that Backstage applies to `material-ui` components
-    ...baseTheme.overrides,
+    ...baseLightTheme.overrides,
+    // These are your custom overrides, either to `material-ui` or Backstage components.
+    ...createCustomThemeOverrides(),
+  },
+};
+
+const baseDarkTheme = createTheme(simpleThemeOptions(darkTheme.palette));
+export const customDarkTheme: BackstageTheme = {
+  ...baseDarkTheme,
+  overrides: {
+    // These are the overrides that Backstage applies to `material-ui` components
+    ...baseDarkTheme.overrides,
     // These are your custom overrides, either to `material-ui` or Backstage components.
     ...createCustomThemeOverrides(),
   },
