@@ -22,6 +22,10 @@ Thoth is an app to expose a service catalog.
 - [ ] Tech Insights campaigns
 - [ ] Ansible Semaphore plugin (third-party API plugin)
 - [ ] .NET template
+- [ ] Do not allow register/unregister entities manually
+- [ ] Groups and users
+- [ ] Domains and systems
+- [ ] Explorer
 
 ## Getting Started
 
