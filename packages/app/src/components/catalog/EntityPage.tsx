@@ -54,11 +54,16 @@ import {
 } from '@backstage/catalog-model';
 
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
-import { ExpandableNavigation, LightBox, ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
-import { ThothCaContent } from '@internal/plugin-thoth-ca';
+import {
+  ExpandableNavigation,
+  LightBox,
+  ReportIssue,
+} from '@backstage/plugin-techdocs-module-addons-contrib';
 import { EntityTechInsightsScorecardCard } from '@backstage/plugin-tech-insights';
+import { EntityTechInsightsScorecardMatrix } from '@internal/plugin-tech-insights-thoth';
 import { EntitySonarQubeCard } from '@backstage/plugin-sonarqube';
 import { EntityAdrContent, isAdrAvailable } from '@backstage/plugin-adr';
+import { Category, CheckId } from '@internal/tech-insights-thoth-common';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -95,12 +100,6 @@ const cicdContent = (
       />
     </EntitySwitch.Case>
   </EntitySwitch>
-);
-
-const caContent = (
-  // This is an example of how you can implement your company's logic in entity page.
-  // You can for example enforce that all components of type 'service' should use GitHubActions
-  <ThothCaContent />
 );
 
 const entityWarningContent = (
@@ -155,42 +154,48 @@ const serviceEntityPage = (
       {cicdContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/ca" title="CA">
-      {caContent}
-    </EntityLayout.Route>
-
     <EntityLayout.Route path="/tech-insights" title="Tech Insights">
       <Grid container spacing={3} alignItems="stretch">
         <EntityTechInsightsScorecardCard
-          title="Service Ownership"
+          title={Category.ServiceOwnership}
           description="Small description about Service Ownership"
-          //checksId={}
+          checksId={[CheckId.OwnerCheck, CheckId.GroupOwnerCheck]}
         />
         <EntityTechInsightsScorecardCard
-          title="Security"
-          description="Small description about Security"
-          //checksId={}
-        />
-        <EntityTechInsightsScorecardCard
-          title="Reliability"
+          title={Category.Reliability}
           description="Small description about Reliability"
-          //checksId={}
+          checksId={[CheckId.HasAlertTool, CheckId.HasIncidentTool]}
         />
         <EntityTechInsightsScorecardCard
-          title="Observability"
-          description="Small description about Observability"
-          //checksId={}
+          title={Category.Readability}
+          description="How easy is to understand the entity"
+          checksId={[
+            CheckId.TitleCheck,
+            CheckId.HasDescription,
+            CheckId.LifecycleCheck,
+            CheckId.HasTags,
+          ]}
         />
         <EntityTechInsightsScorecardCard
-          title="Documentation"
+          title={Category.Documentation}
           description="Small description about Documentation"
-          //checksId={}
+          checksId={[CheckId.TechDocsCheck]}
         />
         <EntityTechInsightsScorecardCard
-          title="Quality"
-          description="Small description about Quality"
-          //checksId={}
+          title={Category.Observability}
+          description="Small description about Documentation"
+          checksId={[
+            CheckId.HasMetricsTool,
+            CheckId.HasLoggingTool,
+            CheckId.HasBacklogTool,
+          ]}
         />
+      </Grid>
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/tech-insights-v2" title="CA">
+      <Grid container spacing={3} alignItems="stretch">
+        <EntityTechInsightsScorecardMatrix />
       </Grid>
     </EntityLayout.Route>
 
@@ -250,7 +255,7 @@ const websiteEntityPage = (
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
-    
+
     <EntityLayout.Route if={isAdrAvailable} path="/adrs" title="ADRs">
       <EntityAdrContent />
     </EntityLayout.Route>
@@ -266,7 +271,7 @@ const libraryEntityPage = (
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
-    
+
     <EntityLayout.Route path="/adrs" title="ADRs">
       <EntityAdrContent />
     </EntityLayout.Route>
