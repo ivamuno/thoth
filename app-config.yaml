@@ -82,6 +82,11 @@ scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
+  locations:
+    - type: url
+      target: https://github.com/ivamuno-backstage/dotnet-template/blob/main/template.yaml
+      rules:
+        - allow: [Template]
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
