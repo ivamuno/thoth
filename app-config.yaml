@@ -82,7 +82,6 @@ scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
-  readonly: true
   rules:
     - allow: [Component, System, API, Resource, Location, Group, User]
   import:
