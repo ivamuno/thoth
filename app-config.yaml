@@ -82,11 +82,16 @@ scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
+  rules:
+    - allow: [Component, System, API, Resource, Location, Group, User]
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
-  rules:
-    - allow: [Component, System, API, Resource, Location, Group, User]
+  locations:
+    - type: url
+      target: https://github.com/ivamuno-backstage/dotnet-template/blob/main/template.yaml
+      rules:
+        - allow: [Template]
   providers:
     github:
       # the provider ID can be any camelCase string

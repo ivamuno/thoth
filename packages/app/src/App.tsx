@@ -38,6 +38,7 @@ import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPage } from '@backstage/core-components';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { customDarkTheme, customLightTheme } from './theme/customTheme';
+import { Entity } from '@backstage/catalog-model';
 
 const app = createApp({
   apis,
@@ -91,6 +92,13 @@ const app = createApp({
   }]
 });
 
+const scaffolderGroups = [
+  {
+    title: "Recommended",
+    filter: (entity: Entity) => entity?.metadata?.tags?.includes('recommended') ?? false,
+  },
+];
+
 const routes = (
   <FlatRoutes>
     <Route path="/" element={<Navigate to="catalog" />} />
@@ -114,7 +122,7 @@ const routes = (
         <LightBox />
       </TechDocsAddons>
     </Route>
-    <Route path="/create" element={<ScaffolderPage />} />
+    <Route path="/create" element={<ScaffolderPage groups={scaffolderGroups} />} />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/tech-radar"
