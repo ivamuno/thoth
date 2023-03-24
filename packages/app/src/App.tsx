@@ -39,6 +39,7 @@ import { SignInPage } from '@backstage/core-components';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { customDarkTheme, customLightTheme } from './theme/customTheme';
 import { Entity } from '@backstage/catalog-model';
+import { MaturityPage } from '@internal/plugin-tech-insights-thoth';
 
 const app = createApp({
   apis,
@@ -141,6 +142,7 @@ const routes = (
     </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
+    <Route path="/maturity" element={<MaturityPage />} />
   </FlatRoutes>
 );
 

@@ -45,11 +45,20 @@ export const techInsightsPlugin = createPlugin({
 /**
  * @public
  */
-export const EntityTechInsightsScorecardMatrix = techInsightsPlugin.provide(
+export const ScorecardMatrix = techInsightsPlugin.provide(
   createRoutableExtension({
-    name: 'EntityTechInsightsScorecardMatrix',
+    name: 'ScorecardMatrix',
     component: () =>
       import('./components/ScorecardMatrix').then(m => m.ScorecardMatrix),
+    mountPoint: rootRouteRef,
+  }),
+);
+
+export const MaturityPage = techInsightsPlugin.provide(
+  createRoutableExtension({
+    name: 'MaturityPage',
+    component: () =>
+      import('./components/MaturityPage').then(m => m.MaturityPage),
     mountPoint: rootRouteRef,
   }),
 );

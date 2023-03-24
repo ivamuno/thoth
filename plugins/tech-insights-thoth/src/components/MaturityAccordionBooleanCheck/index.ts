@@ -13,15 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export {
-  techInsightsPlugin,
-  ScorecardMatrix,
-  MaturityPage,
-} from './plugin';
 
-export { techInsightsApiRef, TechInsightsClient } from './api';
-export type { TechInsightsApi, Check, InsightFacts } from './api';
-export { BooleanCheck } from './components/BooleanCheck';
-export { jsonRulesEngineCheckResultRenderer } from './components/CheckResultRenderer';
-export { AccordionBooleanCheck } from './components/AccordionBooleanCheck';
-export type { CheckResultRenderer } from './components/CheckResultRenderer';
+export { MaturityAccordionBooleanCheck } from './MaturityAccordionBooleanCheck';

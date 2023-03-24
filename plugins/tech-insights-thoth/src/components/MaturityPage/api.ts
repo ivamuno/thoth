@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Backstage Authors
+ * Copyright 2020 The Backstage Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export {
-  techInsightsPlugin,
-  ScorecardMatrix,
-  MaturityPage,
-} from './plugin';
 
-export { techInsightsApiRef, TechInsightsClient } from './api';
-export type { TechInsightsApi, Check, InsightFacts } from './api';
-export { BooleanCheck } from './components/BooleanCheck';
-export { jsonRulesEngineCheckResultRenderer } from './components/CheckResultRenderer';
-export { AccordionBooleanCheck } from './components/AccordionBooleanCheck';
-export type { CheckResultRenderer } from './components/CheckResultRenderer';
+import { CatalogApi } from '@backstage/catalog-client';
+import { createApiRef } from '@backstage/core-plugin-api';
+
+/**
+ * The API reference for the {@link @backstage/catalog-client#CatalogApi}.
+ * @public
+ */
+export const catalogApiRef = createApiRef<CatalogApi>({
+  id: 'plugin.catalog.service',
+});
