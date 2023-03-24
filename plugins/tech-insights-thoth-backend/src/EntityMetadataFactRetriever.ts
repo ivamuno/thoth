@@ -37,7 +37,6 @@ export const entityMetadataFactRetriever: FactRetriever = {
   title: 'Entity Metadata',
   description:
     'Generates facts which indicate the completeness of entity metadata',
-  //entityFilter: { field: 'kind', values: ['component'] },
   schema: {
     [FactId.hasTitle]: {
       type: 'boolean',
@@ -131,10 +130,7 @@ export const entityMetadataFactRetriever: FactRetriever = {
             entity,
             LinkTitle.incidentTool,
           ),
-          [FactId.hasLinkAlertTool]: entityHasLink(
-            entity,
-            LinkTitle.alertTool,
-          ),
+          [FactId.hasLinkAlertTool]: entityHasLink(entity, LinkTitle.alertTool),
           [FactId.hasLinkBacklogTool]: entityHasLink(
             entity,
             LinkTitle.backlogTool,

@@ -1,5 +1,5 @@
 {
-  "name": "@internal/tech-insights-thoth-backend",
+  "name": "@internal/tech-insights-thoth-github-code-scanning-common",
   "version": "0.1.0",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -23,13 +23,6 @@
     "postpack": "backstage-cli package postpack"
   },
   "dependencies": {
-    "@backstage/catalog-client": "^1.4.0",
-    "@backstage/catalog-model": "^1.2.1",
-    "@backstage/plugin-tech-insights-backend": "^0.5.9",
-    "@backstage/plugin-tech-insights-backend-module-jsonfc": "^0.1.27",
-    "@backstage/plugin-tech-insights-node": "^0.4.1",
-    "@internal/tech-insights-thoth-common": "^0.1.0",
-    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@backstage/cli": "^0.22.4"

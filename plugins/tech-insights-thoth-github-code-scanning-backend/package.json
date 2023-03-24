@@ -1,5 +1,5 @@
 {
-  "name": "@internal/tech-insights-thoth-backend",
+  "name": "@internal/tech-insights-thoth-github-code-scanning-backend",
   "version": "0.1.0",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -25,10 +25,14 @@
   "dependencies": {
     "@backstage/catalog-client": "^1.4.0",
     "@backstage/catalog-model": "^1.2.1",
+    "@backstage/config": "^1.0.7",
+    "@backstage/integration": "^1.4.3",
     "@backstage/plugin-tech-insights-backend": "^0.5.9",
     "@backstage/plugin-tech-insights-backend-module-jsonfc": "^0.1.27",
     "@backstage/plugin-tech-insights-node": "^0.4.1",
     "@internal/tech-insights-thoth-common": "^0.1.0",
+    "@internal/tech-insights-thoth-github-code-scanning-common": "^0.1.0",
+    "@octokit/rest": "^19.0.7",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
