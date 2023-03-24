@@ -29,18 +29,14 @@ import {
 import { CheckResult } from '@backstage/plugin-tech-insights-common';
 import { Alert } from '@material-ui/lab';
 import { ErrorPanel, InfoCard, Progress } from '@backstage/core-components';
-import {
-  Category,
-  Tier,
-  checksMetadata,
-  CheckId,
-} from '@internal/tech-insights-thoth-common';
+import { Category, Metadata, Tier } from '@internal/tech-insights-thoth-common';
 import { useApi } from '@backstage/core-plugin-api';
 import { techInsightsApiRef } from '../../api';
 import { CheckResultRenderer } from '../CheckResultRenderer';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import useAsync from 'react-use/lib/useAsync';
 import { getCompoundEntityRef } from '@backstage/catalog-model';
+import { CheckId, checksMetadata } from '../../checksMetadata';
 
 const HeaderRightTypography = withStyles(theme => ({
   root: {
@@ -202,7 +198,7 @@ const infoCard = (checkResults: CheckResult[]) => {
     string,
     Record<string, CheckResult[]>
   > = checkResults.reduce((acc, checkResult) => {
-    const metadata = checksMetadata[checkResult.check.id as CheckId];
+    const metadata: Metadata = checksMetadata[checkResult.check.id as CheckId];
     const category: Category = metadata?.category;
     if (!acc[category]) {
       acc[category] = {};

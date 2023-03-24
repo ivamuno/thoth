@@ -10,6 +10,10 @@ import {
   entityMetadataFactRetriever,
   techInsightRuleChecks,
 } from '@internal/tech-insights-thoth-backend';
+import {
+  githubCodeScannerRetriever,
+  githubCodeScannerRuleChecks,
+} from '@internal/tech-insights-thoth-github-code-scanning-backend';
 
 const ttlTwoWeeks = { timeToLive: { weeks: 2 } };
 
@@ -29,10 +33,15 @@ export default async function createPlugin(
         factRetriever: entityMetadataFactRetriever,
         lifecycle: ttlTwoWeeks,
       }),
+      createFactRetrieverRegistration({
+        cadence: '*/1 * * * *',
+        factRetriever: githubCodeScannerRetriever,
+        lifecycle: ttlTwoWeeks,
+      }),
     ],
     factCheckerFactory: new JsonRulesEngineFactCheckerFactory({
       logger: env.logger,
-      checks: techInsightRuleChecks,
+      checks: [...techInsightRuleChecks, ...githubCodeScannerRuleChecks],
     }),
   });
 

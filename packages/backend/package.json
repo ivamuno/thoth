@@ -41,6 +41,7 @@
     "@backstage/plugin-techdocs-backend": "^1.6.0",
     "@internal/tech-insights-thoth-backend": "^0.1.0",
     "@internal/tech-insights-thoth-common": "^0.1.0",
+    "@internal/tech-insights-thoth-github-code-scanning-backend": "^0.1.0",
     "app": "link:../app",
     "better-sqlite3": "^8.0.0",
     "dockerode": "^3.3.1",
