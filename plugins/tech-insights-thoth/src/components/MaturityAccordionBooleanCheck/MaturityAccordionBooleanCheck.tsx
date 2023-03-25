@@ -5,7 +5,6 @@ import {
   makeStyles,
   Typography,
   Grid,
-  Box,
 } from '@material-ui/core';
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -94,24 +93,23 @@ export const MaturityAccordionBooleanCheck = (props: {
     }, 0) /
       props.checkResult.results.length) *
     100;
+
+  let className = classes.neutral;
+  if (value < 50) {
+    className = classes.failed;
+  } else if (value === 100) {
+    className = classes.success;
+  }
+
   return (
-    <Accordion
-      className={
-        value < 50
-          ? classes.failed
-          : value == 100
-          ? classes.success
-          : classes.neutral
-      }
-      TransitionProps={{ unmountOnExit: true }}
-    >
+    <Accordion className={className} TransitionProps={{ unmountOnExit: true }}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Grid
-          justifyContent="space-between"
           style={{
             display: 'flex',
             width: '100%',
             alignItems: 'center',
+            justifyContent: 'space-between',
           }}
         >
           <Typography className={classes.summaryLabel}>
@@ -137,9 +135,10 @@ export const MaturityAccordionBooleanCheck = (props: {
                 Affected:
               </Typography>
               {props.checkResult.results.map(
-                r =>
+                (r, i) =>
                   !r.result && (
                     <Typography
+                      key={i}
                       variant="body2"
                       color="textSecondary"
                       style={{ padding: '2px' }}

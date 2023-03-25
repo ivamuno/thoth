@@ -11,6 +11,9 @@ import { techInsightsApiRef } from '../../api/TechInsightsApi';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { getCompoundEntityRef } from '@backstage/catalog-model';
 import { MaturityMatrix } from '../MaturityMatrix';
+import { Grid } from '@material-ui/core';
+import { MaturityCategoryBreakdown } from '../MaturityCategoryBreakdown';
+import { MaturityOverview } from '../MaturityOverview';
 
 export const MaturityPage = () => {
   const api = useApi(techInsightsApiRef);
@@ -42,11 +45,21 @@ export const MaturityPage = () => {
     <PageWithHeader
       themeId="maturity"
       title="Maturity"
-      subtitle={"Continous auditing for service maturity"}
+      subtitle="Continous auditing for service maturity"
       pageTitleOverride="APIs"
     >
       <Content>
-        <MaturityMatrix checkResultsByComponent={value} />
+        <Grid container spacing={3} alignItems="stretch">
+          <Grid item xs={4}>
+            <MaturityOverview checkResultsByComponent={value} />
+          </Grid>
+          <Grid item xs={8}>
+            <MaturityCategoryBreakdown checkResultsByComponent={value} />
+          </Grid>
+          <Grid item xs={12}>
+            <MaturityMatrix checkResultsByComponent={value} />
+          </Grid>
+        </Grid>
       </Content>
     </PageWithHeader>
   );

@@ -30,13 +30,15 @@ import { CheckResult } from '@backstage/plugin-tech-insights-common';
 import { Alert } from '@material-ui/lab';
 import { ErrorPanel, InfoCard, Progress } from '@backstage/core-components';
 import { Category, Metadata, Tier } from '@internal/tech-insights-thoth-common';
+import { TechInsightsApi } from '../../api';
 import { useApi } from '@backstage/core-plugin-api';
-import { techInsightsApiRef } from '../../api';
+import { InsightFacts, techInsightsApiRef } from '../../api';
 import { CheckResultRenderer } from '../CheckResultRenderer';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import useAsync from 'react-use/lib/useAsync';
 import { getCompoundEntityRef } from '@backstage/catalog-model';
 import { CheckId, checksMetadata } from '../../checksMetadata';
+import { getTierColors } from '../../tierColors';
 
 const HeaderRightTypography = withStyles(theme => ({
   root: {
@@ -136,14 +138,8 @@ const categoryValueItems = (
 
 const useStyles = (props: { value: string; backgroundColor?: string }) =>
   makeStyles(theme => {
-    const color =
-      props.value == Tier.S
-        ? theme.palette.success.main
-        : props.value == Tier.A
-        ? theme.palette.info.main
-        : props.value == Tier.B
-        ? theme.palette.warning.main
-        : theme.palette.error.main;
+    const tierColors = getTierColors(theme);
+    const color = tierColors[props.value as Tier];
     return {
       avatar: {
         marginLeft: '10px',
@@ -167,24 +163,11 @@ export default function LetterAvatar(props: {
   );
 }
 
-const infoCard = (checkResults: CheckResult[]) => {
-  const { entity } = useEntity();
-  const api = useApi(techInsightsApiRef);
-  const {
-    value: facts,
-    loading,
-    error,
-  } = useAsync(async () => {
-    const ids = [
-      ...new Set(
-        checkResults.reduce((acc, cur) => {
-          return acc.concat(...cur.check.factIds);
-        }, [] as string[]),
-      ),
-    ];
-    return await api.getFacts(getCompoundEntityRef(entity), ids);
-  }, [api, entity]);
-
+const infoCard = (
+  api: TechInsightsApi,
+  checkResults: CheckResult[],
+  facts: InsightFacts,
+) => {
   const checkResultsByTier: Record<
     string,
     { order: number; success: number; failure: number; value: number }
@@ -216,9 +199,12 @@ const infoCard = (checkResults: CheckResult[]) => {
     acc[category][tier].push({ ...checkResult });
 
     const checkResultsTier = checkResultsByTier[tier];
-    checkResult.result
-      ? checkResultsTier.success++
-      : checkResultsTier.failure++;
+    if (checkResult.result) {
+      checkResultsTier.success++;
+    } else {
+      checkResultsTier.failure++;
+    }
+
     checkResultsTier.value =
       (checkResultsTier.success /
         (checkResultsTier.success + checkResultsTier.failure)) *
@@ -238,19 +224,12 @@ const infoCard = (checkResults: CheckResult[]) => {
       return x.order - y.order;
     });
   let currentScore = Tier.C;
-
-  for (let s of scores) {
+  for (const s of scores) {
     if (s.value !== 100) {
       break;
     }
 
     currentScore = s.tier as Tier;
-  }
-
-  if (loading) {
-    return <Progress />;
-  } else if (error) {
-    return <ErrorPanel error={error} />;
   }
 
   return (
@@ -265,29 +244,25 @@ const infoCard = (checkResults: CheckResult[]) => {
         }
       >
         <EmptyGrid container spacing={0}>
-          <CategoryTopRightHeaderGrid
-            container
-            item
-            xs={2}
-          ></CategoryTopRightHeaderGrid>
+          <CategoryTopRightHeaderGrid container item xs={2} />
           <EmptyGrid container item xs={10}>
             <CategoryTopHeaderGrid item xs={4}>
               <HeaderTopTypography>{Tier.B}</HeaderTopTypography>
               <LinearProgressWithLabel
                 value={checkResultsByTier[Tier.B].value}
-              ></LinearProgressWithLabel>
+              />
             </CategoryTopHeaderGrid>
             <CategoryTopHeaderGrid item xs={4}>
               <HeaderTopTypography>{Tier.A}</HeaderTopTypography>
               <LinearProgressWithLabel
                 value={checkResultsByTier[Tier.A].value}
-              ></LinearProgressWithLabel>
+              />
             </CategoryTopHeaderGrid>
             <CategoryTopHeaderGrid item xs={4}>
               <HeaderTopTypography>{Tier.S}</HeaderTopTypography>
               <LinearProgressWithLabel
                 value={checkResultsByTier[Tier.S].value}
-              ></LinearProgressWithLabel>
+              />
             </CategoryTopHeaderGrid>
           </EmptyGrid>
         </EmptyGrid>
@@ -332,10 +307,32 @@ const infoCard = (checkResults: CheckResult[]) => {
 
 export const ScorecardMatrixInfo = (props: { checkResults: CheckResult[] }) => {
   const { checkResults } = props;
+  const { entity } = useEntity();
+  const api = useApi(techInsightsApiRef);
+  const {
+    value: facts,
+    loading,
+    error,
+  } = useAsync(async () => {
+    const ids = [
+      ...new Set(
+        checkResults.reduce((acc, cur) => {
+          return acc.concat(...cur.check.factIds);
+        }, [] as string[]),
+      ),
+    ];
+    return await api.getFacts(getCompoundEntityRef(entity), ids);
+  }, [api, entity]);
 
   if (!checkResults.length) {
     return <Alert severity="warning">No checks have any data yet.</Alert>;
   }
 
-  return infoCard(checkResults);
+  if (loading) {
+    return <Progress />;
+  } else if (error) {
+    return <ErrorPanel error={error} />;
+  }
+
+  return infoCard(api, checkResults, facts!);
 };

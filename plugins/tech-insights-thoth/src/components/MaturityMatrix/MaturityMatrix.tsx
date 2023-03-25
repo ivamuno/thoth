@@ -26,18 +26,14 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
-import {
-  CheckResult,
-} from '@backstage/plugin-tech-insights-common';
+import { CheckResult } from '@backstage/plugin-tech-insights-common';
 import { Alert } from '@material-ui/lab';
 import { InfoCard, Progress } from '@backstage/core-components';
 import { Category, Metadata, Tier } from '@internal/tech-insights-thoth-common';
 import { useApi } from '@backstage/core-plugin-api';
-import { techInsightsApiRef } from '../../api';
+import { TechInsightsApi, techInsightsApiRef } from '../../api';
 import { CheckResultRenderer } from '../CheckResultRenderer';
-import {
-  CompoundEntityRef,
-} from '@backstage/catalog-model';
+import { CompoundEntityRef } from '@backstage/catalog-model';
 import { CheckId, checksMetadata } from '../../checksMetadata';
 import { JsonValue } from '@backstage/types';
 import { MaturityAccordionBooleanCheck } from '../MaturityAccordionBooleanCheck';
@@ -139,7 +135,9 @@ const categoryValueItems = (
 
     return component ? (
       <React.Fragment key={checkResult.check.id}>
-        <MaturityAccordionBooleanCheck checkResult={checkResultsByCategory[checkId]} />
+        <MaturityAccordionBooleanCheck
+          checkResult={checkResultsByCategory[checkId]}
+        />
       </React.Fragment>
     ) : (
       <Alert severity="error">Unknown type.</Alert>
@@ -149,14 +147,15 @@ const categoryValueItems = (
 
 const useStyles = (props: { value: string; backgroundColor?: string }) =>
   makeStyles(theme => {
-    const color =
-      props.value == Tier.S
-        ? theme.palette.success.main
-        : props.value == Tier.A
-        ? theme.palette.info.main
-        : props.value == Tier.B
-        ? theme.palette.warning.main
-        : theme.palette.error.main;
+    let color = theme.palette.error.main;
+    if (props.value === Tier.S) {
+      color = theme.palette.success.main;
+    } else if (props.value === Tier.A) {
+      color = theme.palette.info.main;
+    } else if (props.value === Tier.B) {
+      color = theme.palette.warning.main;
+    }
+
     return {
       avatar: {
         marginLeft: '10px',
@@ -181,6 +180,7 @@ export default function LetterAvatar(props: {
 }
 
 const infoCard = (
+  api: TechInsightsApi,
   checkResultsByComponent: {
     compoundEntityRef: CompoundEntityRef;
     checkResults: CheckResult[];
@@ -239,9 +239,12 @@ const infoCard = (
       types = [...new Set(types.concat(checkResult.check.type))];
 
       const checkResultsTier = checkResultsByTier[tier];
-      checkResult.result
-        ? checkResultsTier.success++
-        : checkResultsTier.failure++;
+      if (checkResult.result) {
+        checkResultsTier.success++;
+      } else {
+        checkResultsTier.failure++;
+      }
+
       checkResultsTier.value =
         (checkResultsTier.success /
           (checkResultsTier.success + checkResultsTier.failure)) *
@@ -249,36 +252,31 @@ const infoCard = (
     }
   }
 
-  const api = useApi(techInsightsApiRef);
   const checkResultRenderers = api.getCheckResultRenderers(types);
 
   return (
     <Grid item xs={12}>
-      <InfoCard title="Summary">
+      <InfoCard title="Details">
         <EmptyGrid container spacing={0}>
-          <CategoryTopRightHeaderGrid
-            container
-            item
-            xs={2}
-          ></CategoryTopRightHeaderGrid>
+          <CategoryTopRightHeaderGrid container item xs={2} />
           <EmptyGrid container item xs={10}>
             <CategoryTopHeaderGrid item xs={4}>
               <HeaderTopTypography>{Tier.B}</HeaderTopTypography>
               <LinearProgressWithLabel
                 value={checkResultsByTier[Tier.B].value}
-              ></LinearProgressWithLabel>
+              />
             </CategoryTopHeaderGrid>
             <CategoryTopHeaderGrid item xs={4}>
               <HeaderTopTypography>{Tier.A}</HeaderTopTypography>
               <LinearProgressWithLabel
                 value={checkResultsByTier[Tier.A].value}
-              ></LinearProgressWithLabel>
+              />
             </CategoryTopHeaderGrid>
             <CategoryTopHeaderGrid item xs={4}>
               <HeaderTopTypography>{Tier.S}</HeaderTopTypography>
               <LinearProgressWithLabel
                 value={checkResultsByTier[Tier.S].value}
-              ></LinearProgressWithLabel>
+              />
             </CategoryTopHeaderGrid>
           </EmptyGrid>
         </EmptyGrid>
@@ -286,7 +284,7 @@ const infoCard = (
         {Object.keys(checkResultsByCategory)
           .sort()
           .map(category => (
-            <EmptyGrid container spacing={0}>
+            <EmptyGrid key={category} container spacing={0}>
               <EmptyGrid container item xs={2}>
                 <CategoryRightHeaderGrid item xs={12}>
                   <HeaderRightTypography>
@@ -330,10 +328,10 @@ export const MaturityMatrix = (props: {
     | undefined;
 }) => {
   const { checkResultsByComponent } = props;
-
+  const api = useApi(techInsightsApiRef);
   if (!checkResultsByComponent?.length) {
     return <Alert severity="warning">No checks have any data yet.</Alert>;
   }
 
-  return infoCard(checkResultsByComponent);
+  return infoCard(api, checkResultsByComponent);
 };
