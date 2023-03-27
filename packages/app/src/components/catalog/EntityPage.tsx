@@ -60,7 +60,7 @@ import {
   ReportIssue,
 } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { EntityTechInsightsScorecardCard } from '@backstage/plugin-tech-insights';
-import { EntityTechInsightsScorecardMatrix } from '@internal/plugin-tech-insights-thoth';
+import { ScorecardMatrix } from '@internal/plugin-tech-insights-thoth';
 import { EntitySonarQubeCard } from '@backstage/plugin-sonarqube';
 import { EntityAdrContent, isAdrAvailable } from '@backstage/plugin-adr';
 import { Category, CheckId } from '@internal/tech-insights-thoth-common';
@@ -195,7 +195,7 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/tech-insights-v2" title="CA">
       <Grid container spacing={3} alignItems="stretch">
-        <EntityTechInsightsScorecardMatrix />
+        <ScorecardMatrix />
       </Grid>
     </EntityLayout.Route>
 

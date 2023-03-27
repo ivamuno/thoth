@@ -28,17 +28,15 @@ import {
 } from '@material-ui/core';
 import { CheckResult } from '@backstage/plugin-tech-insights-common';
 import { Alert } from '@material-ui/lab';
-import { ErrorPanel, InfoCard, Progress } from '@backstage/core-components';
+import { InfoCard, Progress } from '@backstage/core-components';
 import { Category, Metadata, Tier } from '@internal/tech-insights-thoth-common';
-import { TechInsightsApi } from '../../api';
 import { useApi } from '@backstage/core-plugin-api';
-import { InsightFacts, techInsightsApiRef } from '../../api';
+import { TechInsightsApi, techInsightsApiRef } from '../../api';
 import { CheckResultRenderer } from '../CheckResultRenderer';
-import { useEntity } from '@backstage/plugin-catalog-react';
-import useAsync from 'react-use/lib/useAsync';
-import { getCompoundEntityRef } from '@backstage/catalog-model';
+import { CompoundEntityRef } from '@backstage/catalog-model';
 import { CheckId, checksMetadata } from '../../checksMetadata';
-import { getTierColors } from '../../tierColors';
+import { JsonValue } from '@backstage/types';
+import { MaturityAccordionBooleanCheck } from '../MaturityAccordionBooleanCheck';
 
 const HeaderRightTypography = withStyles(theme => ({
   root: {
@@ -121,15 +119,26 @@ function LinearProgressWithLabel(
 
 const categoryValueItems = (
   checkResultRenderers: CheckResultRenderer[],
-  checkResultsByCategory: CheckResult[],
+  checkResultsByCategory: Record<
+    string,
+    {
+      checkResult: CheckResult;
+      results: { result: JsonValue; service: CompoundEntityRef }[];
+    }
+  >,
 ) => {
-  return (checkResultsByCategory || []).map(result => {
+  return Object.keys(checkResultsByCategory || []).map(checkId => {
+    const checkResult = checkResultsByCategory[checkId].checkResult;
     const component = checkResultRenderers
-      .find(({ type }) => type === result.check.type)
-      ?.component(result);
+      .find(({ type }) => type === checkResult.check.type)
+      ?.component(checkResult);
 
     return component ? (
-      <React.Fragment key={result.check.id}>{component}</React.Fragment>
+      <React.Fragment key={checkResult.check.id}>
+        <MaturityAccordionBooleanCheck
+          checkResult={checkResultsByCategory[checkId]}
+        />
+      </React.Fragment>
     ) : (
       <Alert severity="error">Unknown type.</Alert>
     );
@@ -138,8 +147,15 @@ const categoryValueItems = (
 
 const useStyles = (props: { value: string; backgroundColor?: string }) =>
   makeStyles(theme => {
-    const tierColors = getTierColors(theme);
-    const color = tierColors[props.value as Tier];
+    let color = theme.palette.error.main;
+    if (props.value === Tier.S) {
+      color = theme.palette.success.main;
+    } else if (props.value === Tier.A) {
+      color = theme.palette.info.main;
+    } else if (props.value === Tier.B) {
+      color = theme.palette.warning.main;
+    }
+
     return {
       avatar: {
         marginLeft: '10px',
@@ -165,9 +181,25 @@ export default function LetterAvatar(props: {
 
 const infoCard = (
   api: TechInsightsApi,
-  checkResults: CheckResult[],
-  facts: InsightFacts,
+  checkResultsByComponent: {
+    compoundEntityRef: CompoundEntityRef;
+    checkResults: CheckResult[];
+  }[],
 ) => {
+  const checkResultsByCategory: Record<
+    string,
+    Record<
+      string,
+      Record<
+        string,
+        {
+          checkResult: CheckResult;
+          results: { result: JsonValue; service: CompoundEntityRef }[];
+        }
+      >
+    >
+  > = {};
+  let types: string[] = [];
   const checkResultsByTier: Record<
     string,
     { order: number; success: number; failure: number; value: number }
@@ -177,72 +209,54 @@ const infoCard = (
     A: { order: 2, success: 0, failure: 0, value: 0 },
     S: { order: 3, success: 0, failure: 0, value: 0 },
   };
-  const checkResultsByCategory: Record<
-    string,
-    Record<string, CheckResult[]>
-  > = checkResults.reduce((acc, checkResult) => {
-    const metadata: Metadata = checksMetadata[checkResult.check.id as CheckId];
-    const category: Category = metadata?.category;
-    if (!acc[category]) {
-      acc[category] = {};
+  for (const checkResultByComponent of checkResultsByComponent) {
+    for (const checkResult of checkResultByComponent.checkResults) {
+      const metadata: Metadata =
+        checksMetadata[checkResult.check.id as CheckId];
+      const category: string = metadata?.category;
+      if (!checkResultsByCategory[category]) {
+        checkResultsByCategory[category] = {};
+      }
+
+      const tier: string = metadata?.tier;
+      if (!checkResultsByCategory[category][tier]) {
+        checkResultsByCategory[category][tier] = {};
+      }
+
+      const checkId: string = checkResult.check.id;
+      if (!checkResultsByCategory[category][tier][checkId]) {
+        checkResultsByCategory[category][tier][checkId] = {
+          checkResult: checkResult,
+          results: [],
+        };
+      }
+
+      checkResultsByCategory[category][tier][checkId].results.push({
+        result: checkResult.result,
+        service: checkResultByComponent.compoundEntityRef,
+      });
+
+      types = [...new Set(types.concat(checkResult.check.type))];
+
+      const checkResultsTier = checkResultsByTier[tier];
+      if (checkResult.result) {
+        checkResultsTier.success++;
+      } else {
+        checkResultsTier.failure++;
+      }
+
+      checkResultsTier.value =
+        (checkResultsTier.success /
+          (checkResultsTier.success + checkResultsTier.failure)) *
+        100;
     }
-
-    const tier: Tier = metadata?.tier;
-    if (!acc[category][tier]) {
-      acc[category][tier] = [];
-    }
-
-    checkResult.check.metadata = {
-      ...checkResult.check.metadata,
-      timestamp: facts ? facts[checkResult.check.factIds[0]].timestamp : '',
-    };
-    acc[category][tier].push({ ...checkResult });
-
-    const checkResultsTier = checkResultsByTier[tier];
-    if (checkResult.result) {
-      checkResultsTier.success++;
-    } else {
-      checkResultsTier.failure++;
-    }
-
-    checkResultsTier.value =
-      (checkResultsTier.success /
-        (checkResultsTier.success + checkResultsTier.failure)) *
-      100;
-
-    return acc;
-  }, {} as Record<string, Record<string, CheckResult[]>>);
-
-  const types = [...new Set(checkResults.map(({ check }) => check.type))];
-  const checkResultRenderers = api.getCheckResultRenderers(types);
-
-  const scores = Object.keys(checkResultsByTier)
-    .reduce((acc, cur) => {
-      return acc.concat({ tier: cur, ...checkResultsByTier[cur] });
-    }, [] as { tier: string; order: number; success: number; failure: number; value: number }[])
-    .sort((x, y) => {
-      return x.order - y.order;
-    });
-  let currentScore = Tier.C;
-  for (const s of scores) {
-    if (s.value !== 100) {
-      break;
-    }
-
-    currentScore = s.tier as Tier;
   }
+
+  const checkResultRenderers = api.getCheckResultRenderers(types);
 
   return (
     <Grid item xs={12}>
-      <InfoCard
-        title="Continuous Auditing"
-        subheader={
-          <Grid container spacing={0} alignContent="center" alignItems="center">
-            <HeaderTopTypography>Score: </HeaderTopTypography>
-            <LetterAvatar value={currentScore} />
-          </Grid>
-        }
-      >
+      <InfoCard title="Details">
         <EmptyGrid container spacing={0}>
           <CategoryTopRightHeaderGrid container item xs={2} />
           <EmptyGrid container item xs={10}>
@@ -269,8 +283,8 @@ const infoCard = (
 
         {Object.keys(checkResultsByCategory)
           .sort()
-          .map((category, i) => (
-            <EmptyGrid container spacing={0} key={i}>
+          .map(category => (
+            <EmptyGrid key={category} container spacing={0}>
               <EmptyGrid container item xs={2}>
                 <CategoryRightHeaderGrid item xs={12}>
                   <HeaderRightTypography>
@@ -305,34 +319,19 @@ const infoCard = (
   );
 };
 
-export const ScorecardMatrixInfo = (props: { checkResults: CheckResult[] }) => {
-  const { checkResults } = props;
-  const { entity } = useEntity();
+export const MaturityMatrix = (props: {
+  checkResultsByComponent:
+    | {
+        compoundEntityRef: CompoundEntityRef;
+        checkResults: CheckResult[];
+      }[]
+    | undefined;
+}) => {
+  const { checkResultsByComponent } = props;
   const api = useApi(techInsightsApiRef);
-  const {
-    value: facts,
-    loading,
-    error,
-  } = useAsync(async () => {
-    const ids = [
-      ...new Set(
-        checkResults.reduce((acc, cur) => {
-          return acc.concat(...cur.check.factIds);
-        }, [] as string[]),
-      ),
-    ];
-    return await api.getFacts(getCompoundEntityRef(entity), ids);
-  }, [api, entity]);
-
-  if (!checkResults.length) {
+  if (!checkResultsByComponent?.length) {
     return <Alert severity="warning">No checks have any data yet.</Alert>;
   }
 
-  if (loading) {
-    return <Progress />;
-  } else if (error) {
-    return <ErrorPanel error={error} />;
-  }
-
-  return infoCard(api, checkResults, facts!);
+  return infoCard(api, checkResultsByComponent);
 };

@@ -27,7 +27,7 @@ Thoth is an app to expose a service catalog.
   - [X] Basic (component)
   - [x] GitHub Code Scanning Insights
   - [ ] GitHub CI/CD Insights
-  - [ ] Maturity report (page)
+  - [x] Maturity report (page)
   - [ ] Campaigns
 - [ ] Service custom metadata (PCI, PII, type of software, etc.)
 - [ ] Templates

@@ -13,18 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { createDevApp } from '@backstage/dev-utils';
-import {
-  techInsightsPlugin,
-  ScorecardMatrix
-} from '../src/plugin';
 
-createDevApp()
-  .registerPlugin(techInsightsPlugin)
-  .addPage({
-    element: <ScorecardMatrix />,
-    title: 'Root Page',
-    path: '/tech-insight-scorecard',
-  })
-  .render();
+export { MaturityAccordionBooleanCheck } from './MaturityAccordionBooleanCheck';

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Backstage Authors
+ * Copyright 2020 The Backstage Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { createDevApp } from '@backstage/dev-utils';
-import {
-  techInsightsPlugin,
-  ScorecardMatrix
-} from '../src/plugin';
 
-createDevApp()
-  .registerPlugin(techInsightsPlugin)
-  .addPage({
-    element: <ScorecardMatrix />,
-    title: 'Root Page',
-    path: '/tech-insight-scorecard',
-  })
-  .render();
+import { CatalogApi } from '@backstage/catalog-client';
+import { createApiRef } from '@backstage/core-plugin-api';
+
+/**
+ * The API reference for the {@link @backstage/catalog-client#CatalogApi}.
+ * @public
+ */
+export const catalogApiRef = createApiRef<CatalogApi>({
+  id: 'plugin.catalog.service',
+});
