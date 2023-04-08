@@ -9,11 +9,11 @@ import { JsonRulesEngineFactCheckerFactory } from '@backstage/plugin-tech-insigh
 import {
   entityMetadataFactRetriever,
   techInsightRuleChecks,
-} from '@internal/tech-insights-thoth-backend';
+} from '@backstage-thoth/plugin-tech-insights-backend';
 import {
   githubCodeScannerRetriever,
   githubCodeScannerRuleChecks,
-} from '@internal/tech-insights-thoth-github-code-scanning-backend';
+} from '@backstage-thoth/plugin-tech-insights-github-code-scanning-backend';
 
 const ttlTwoWeeks = { timeToLive: { weeks: 2 } };
 

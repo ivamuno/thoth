@@ -60,10 +60,10 @@ import {
   ReportIssue,
 } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { EntityTechInsightsScorecardCard } from '@backstage/plugin-tech-insights';
-import { ScorecardMatrix } from '@internal/plugin-tech-insights-thoth';
 import { EntitySonarQubeCard } from '@backstage/plugin-sonarqube';
 import { EntityAdrContent, isAdrAvailable } from '@backstage/plugin-adr';
-import { Category, CheckId } from '@internal/tech-insights-thoth-common';
+import { ScorecardMatrix } from '@backstage-thoth/plugin-tech-insights';
+import { Category, CheckId } from '@backstage-thoth/plugin-tech-insights-common';
 
 const techdocsContent = (
   <EntityTechdocsContent>
