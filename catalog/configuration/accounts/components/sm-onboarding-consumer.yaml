@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: accounts-sm.onboarding.consumer
+  title: SubMerchant Onboarding Consumer
+  description: Consume and materialize sub merchant onboarding events
+  tags:
+    - consumer
+  links:
+    - url: https://github.com/orgs/getpaidio/projects/4/views/7?filterQuery=domain%3A%22Accounts+%F0%9F%93%92%22
+      title: Backlog Tool
+      icon: dashboard
+  annotations:
+    backstage.io/adr-location: ./docs/adrs
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: team-dev
+  system: accounts
+  dependsOn:
+    - 'component:accounts.application'
+    - 'resource:onboarding-db-events'

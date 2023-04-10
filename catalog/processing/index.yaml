@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: processing-spec
+  description: Processing spec file
+spec:
+  targets:
+    - ./payments/index.yaml
+    - ./payouts/index.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: processing
+  description: Everything related to processing
+  links:
+    - url: http://getpaid.io/domain/processing/
+      title: Domain Readme
+spec:
+  owner: engineering

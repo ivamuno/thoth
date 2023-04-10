@@ -4,6 +4,14 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import MapIcon from '@material-ui/icons/MyLocation';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import ApiIcon from '@material-ui/icons/Extension';
+import ComponentIcon from '@material-ui/icons/Memory';
+import DomainIcon from '@material-ui/icons/Apartment';
+import ResourceIcon from '@material-ui/icons/Work';
+import SystemIcon from '@material-ui/icons/Category';
+import UserIcon from '@material-ui/icons/Person';
+import CatalogIcon from '@material-ui/icons/MenuBook';
+
 import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 import LogoFull from './LogoFull';
@@ -24,6 +32,9 @@ import {
   SidebarSpace,
   useSidebarOpenState,
   Link,
+  SidebarSubmenu,
+  SidebarSubmenuItem,
+  GroupIcon,
 } from '@backstage/core-components';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -65,8 +76,48 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       </SidebarGroup>
       <SidebarDivider />
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
-        {/* Global nav, not org-specific */}
-        <SidebarItem icon={HomeIcon} to="catalog" text="Home" />
+        <SidebarItem icon={HomeIcon} to="home" text="Home" />
+        <SidebarItem icon={CatalogIcon} to="catalog" text="Catalog">
+          <SidebarSubmenu title="Catalog">
+            <SidebarSubmenuItem
+              title="Domains"
+              to="catalog?filters[kind]=domain"
+              icon={DomainIcon}
+            />
+            <SidebarSubmenuItem
+              title="Systems"
+              to="catalog?filters[kind]=system"
+              icon={SystemIcon}
+            />
+            <SidebarSubmenuItem
+              title="Components"
+              to="catalog?filters[kind]=component"
+              icon={ComponentIcon}
+            />
+            <SidebarSubmenuItem
+              title="APIs"
+              to="catalog?filters[kind]=api"
+              icon={ApiIcon}
+            />
+            <SidebarDivider />
+            <SidebarSubmenuItem
+              title="Resources"
+              to="catalog?filters[kind]=resource"
+              icon={ResourceIcon}
+            />
+            <SidebarDivider />
+            <SidebarSubmenuItem
+              title="Groups"
+              to="catalog?filters[kind]=group"
+              icon={GroupIcon}
+            />
+            <SidebarSubmenuItem
+              title="Users"
+              to="catalog?filters[kind]=user"
+              icon={UserIcon}
+            />
+          </SidebarSubmenu>
+        </SidebarItem>
         <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
         <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
         <SidebarItem icon={CheckCircleOutline} to="maturity" text="Maturity" />

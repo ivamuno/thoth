@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: payouts
+  description: Payouts Desc
+spec:
+  owner: team-dev
+  domain: processing

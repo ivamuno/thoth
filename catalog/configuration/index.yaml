@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: configuration-spec
+  description: Configuration spec file
+spec:
+  targets:
+    - ./accounts/index.yaml
+    - ./boarding/index.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: configuration
+  description: Everything related to configuration
+  links:
+    - url: http://getpaid.io/domain/configuration/
+      title: Domain Readme
+spec:
+  owner: engineering

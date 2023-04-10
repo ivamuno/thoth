@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: getpaid-org
+  description: Getpaid organization
+  links:
+    - url: https://www.getpaid.io/
+      title: Website
+spec:
+  type: organization
+  profile:
+    displayName: GetPaid
+    email: support@getpaid.io
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: getpaid
+  description: Catalog spec file
+spec:
+  targets:
+    - ./apis/public-api.yaml
+    - ./apis/sm-onboarding-consumer-async.yaml
+    - ./components/service-bus.yaml
+    - ./configuration/index.yaml
+    - ./processing/index.yaml
+    - ./resources/index.yaml
+    - ./users/index.yaml

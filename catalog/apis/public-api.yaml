@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: public-api
+  title: Public API
+  description: Public API Desc
+  tags:
+    - rest
+  links:
+    - url: https://docs.getpaid.io/redocusaurus/plugin-redoc-0.yaml
+      title: Source spec
+      icon: code
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-dev
+  definition:
+    $text: https://docs.getpaid.io/redocusaurus/plugin-redoc-0.yaml

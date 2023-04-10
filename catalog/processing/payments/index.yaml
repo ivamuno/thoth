@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: payments-spec
+  description: Payments spec file
+spec:
+  targets:
+    - ./components/accounts-consumer.yaml
+    - ./components/payouts-consumer.yaml
+    - ./resources.yaml
+    - ./system.yaml

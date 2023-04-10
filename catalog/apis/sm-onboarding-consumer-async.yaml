@@ -1,0 +1,192 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: sm-onboarding-consumer-async-spec
+  title: Sm.Onboarding.Consumer Async API
+  description: Contains events for Sm.Onboarding.Consumer service
+  tags:
+    - asyncapi
+spec:
+  type: asyncapi
+  lifecycle: production
+  owner: team-dev
+  definition: |
+    asyncapi: 2.6.0
+    info:
+      title: Sm.Onboarding.Consumer Async API
+      version: 1.0.0
+      description: Contains events for Sm.Onboarding.Consumer service
+    channels:
+      onboarding/onboarding-events:
+        subscribe:
+          operationId: "subscribe:onboarding/onboarding-events"
+          summary: onboarding.onboarding-events
+          description: |
+            Subscribed events from accounts onboarding.
+          message:
+            oneOf:
+            - $ref: '#/components/messages/ProviderApproved'
+            - $ref: '#/components/messages/ApplicationInitiated'
+            - $ref: '#/components/messages/BusinessProfileUpdated'
+      accounts/accounts-events:
+        publish:
+          operationId: "publish:accounts/accounts-events"
+          summary: accounts.accounts-events
+          description: |
+            Published events from accounts domain.
+          message:
+            oneOf:
+            - $ref: '#/components/messages/MerchantCreated'
+            - $ref: '#/components/messages/PlatformCreated'
+    components:
+      messages:
+        ProviderApproved:
+          name: ProviderApproved 
+          description: MerchantCreated event
+          payload:
+            $ref: '#/components/schemas/ProviderApprovedPayload'
+        ApplicationInitiated:
+          name: ApplicationInitiated 
+          description: Company deleted event received from web service.
+          payload:
+            $ref: '#/components/schemas/ApplicationInitiatedPayload'
+        BusinessProfileUpdated:
+          name: BusinessProfileUpdated 
+          description: Company deleted event received from web service.
+          payload:
+            $ref: '#/components/schemas/BusinessProfileUpdatedPayload'
+        MerchantCreated:
+          name: MerchantCreated 
+          description: MerchantCreated event
+          payload:
+            $ref: '#/components/schemas/MerchantCreatedPayload'
+        PlatformCreated:
+          description: Company deleted event received from web service.
+          payload:
+            $ref: '#/components/schemas/PlatformCreatedPayload'
+      schemas:
+        ProviderApprovedPayload:
+          type: object
+          properties:
+            event_type:
+              const: ProviderApproved
+            application_id:
+              type: string
+              example: app_4ep6mfksh87dk62c8stc4a73m8
+            provider_name:
+              type: string
+              example: digiteal
+            merchant_id:
+              type: string
+              example: FR:VAT:TET
+            entity_type:
+              type: string
+              enum:
+                - Merchant
+                - Platform
+            occurred_at:
+              type: string
+              format: date-time
+              example: '2023-02-10T14:16:07.6962864Z'
+          required:
+            - event_type
+        ApplicationInitiatedPayload:
+          type: object
+          properties:
+            event_type:
+              const: ApplicationInitiated
+            application_id:
+              type: string
+              example: app_4ep6mfksh87dk62c8stc4a73m8
+            platform_id:
+              type: string
+              example: acc_4wpgcp0z7q76j18sw9kr3a9w5q
+            merchant_id:
+              type: string
+              example: acc_4fq0808amns21agn4h17sede4k
+            reference:
+              type: string
+              example: test-id-11
+            entity_type:
+              type: string
+              enum:
+                - Merchant
+                - Platform
+              example: Merchant
+            occurred_at:
+              type: string
+              format: date-time
+              example: '2023-02-10T14:16:07.6962864Z'
+          required:
+            - event_type
+        BusinessProfileUpdatedPayload:
+          type: object
+          properties:
+            event_type:
+              const: BusinessProfileUpdated
+            application_id:
+              type: string
+              example: app_4ep6mfksh87dk62c8stc4a73m8
+            legal_name:
+              type: string
+              example: test
+            occurred_at:
+              type: string
+              format: date-time
+              example: '2023-02-10T14:16:07.6962864Z'
+          required:
+            - event_type
+        AccountCreatedPayload:
+          type: object
+          properties:
+            account_id:
+              type: string
+              example: acc_4wpgcp0z7q76j18sw9kr3a9w5q
+            organization_id:
+              type: string
+              example: org_4x1dt2qxkkd35fcswvtb1wyzx1
+            registrations:
+              type: object
+              properties:
+                provider:
+                  type: string
+                  example: digiteal
+                merchant_id:
+                  type: string
+                  example: DE:VAT:DE000000021
+              required:
+                - provider
+                - merchant_id
+            occurred_at:
+              type: string
+              format: date-time
+              example: '2023-02-10T14:16:07.6962864Z'
+          required:
+            - event_type
+            - account_id
+            - organization_id
+            - registrations
+        MerchantCreatedPayload:
+          description: MerchantCreated event
+          allOf:
+          - type: object
+            properties:
+              event_type:
+                const: MerchantCreated
+              platform_account_id:
+                type: string
+                example: acc_4r8t310nhp2mferdc1waa07s5d
+            required:
+              - event_type
+              - platform_account_id
+          - $ref: '#/components/schemas/AccountCreatedPayload'
+        PlatformCreatedPayload:
+          description: PlatformCreated event
+          allOf:
+          - type: object
+            properties:
+              event_type:
+                const: PlatformCreated
+            required:
+              - event_type
+          - $ref: '#/components/schemas/AccountCreatedPayload'

@@ -1,0 +1,73 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: engineering
+  description: Engineering
+spec:
+  type: department
+  profile:
+    email: engineering-all@getpaid.io
+  parent: getpaid-org
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-infra
+spec:
+  type: team
+  profile:
+    email: infra@getpaid.io
+  parent: engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-dev
+spec:
+  type: team
+  profile:
+    email: dev@getpaid.io
+  parent: engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: davide.lettieri
+spec:
+  profile:
+    displayName: Davide Lettieri
+    email: davide.lettieri@getpaid.io
+  memberOf: [team-infra]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: francisco.gutierrez
+spec:
+  profile:
+    displayName: Francisco Javier Gutiérrez
+    email: francisco.gutierrez@getpaid.io
+  memberOf: [engineering]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: ivan.munoz
+spec:
+  profile:
+    displayName: Iván Muñoz
+    email: ivan.munoz@getpaid.io
+  memberOf: [team-dev]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: jorge.gomez
+spec:
+  profile:
+    displayName: Jorge Gómez
+    email: jorge.gomez@getpaid.io
+  memberOf: [engineering]

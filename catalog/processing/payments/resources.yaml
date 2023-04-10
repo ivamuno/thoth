@@ -1,0 +1,36 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payments-db
+  title: payments
+  description: Payments Database
+spec:
+  type: database
+  system: payments
+  dependsOn: 
+    - resource:cosmos-db
+  owner: team-infra
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payments-db-events
+  title: payments-events
+  description: Payments Events Container
+spec:
+  type: database-container
+  dependsOn: 
+    - resource:payments-db
+  owner: team-infra
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payments-db-accounts
+  title: accounts
+  description: Accounts Container
+spec:
+  type: database-container
+  dependsOn: 
+    - resource:payments-db
+  owner: team-infra

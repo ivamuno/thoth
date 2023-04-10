@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: sm-boarding
+  description: SubMerchant Boarding Desc
+  links:
+    - url: https://docs.getpaid.io/merchant-accounts/
+      title: Public Doc
+      icon: docs
+    - url: https://github.com/orgs/getpaidio/projects/4/views/7?filterQuery=domain%3A%22Onboarding++%E2%9C%94%22
+      title: Backlog Tool
+      icon: dashboard
+spec:
+  owner: team-dev
+  domain: configuration

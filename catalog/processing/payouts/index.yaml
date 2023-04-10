@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: payouts-spec
+  description: Payouts spec file
+spec:
+  targets:
+    - ./resources.yaml
+    - ./system.yaml

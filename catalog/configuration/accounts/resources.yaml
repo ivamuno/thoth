@@ -1,0 +1,36 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: accounts-db
+  title: accounts
+  description: Accounts Database
+spec:
+  type: database
+  system: accounts
+  dependsOn: 
+    - resource:cosmos-db
+  owner: team-infra
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: accounts-db-events
+  title: account-events
+  description: Accounts Events Container
+spec:
+  type: database-container
+  dependsOn: 
+    - resource:accounts-db
+  owner: team-infra
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: accounts-db-applications
+  title: applications
+  description: Applications Container
+spec:
+  type: database-container
+  dependsOn: 
+    - resource:accounts-db
+  owner: team-infra

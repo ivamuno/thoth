@@ -1,0 +1,48 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payouts-db
+  title: payouts
+  description: Payouts Database
+spec:
+  type: database
+  system: payouts
+  dependsOn: 
+    - resource:cosmos-db
+  owner: team-infra
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payouts-db-events
+  title: payouts-events
+  description: Payouts Events Container
+spec:
+  type: database-container
+  dependsOn: 
+    - resource:payouts-db
+  owner: team-infra
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payouts-db-accounts-lookup
+  title: accounts-lookup
+  description: Accounts Lookup Container
+spec:
+  type: database-container
+  dependsOn: 
+    - resource:payouts-db
+  owner: team-infra
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payouts-db-payments-lookup
+  title: payments-lookup
+  description: Payments Lookup Container
+spec:
+  type: database-container
+  dependsOn: 
+    - resource:payouts-db
+  owner: team-infra

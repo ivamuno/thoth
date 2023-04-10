@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: cosmos-db
+  title: Azure Cosmos DB
+  description: Azure Cosmos DB is a fully managed NoSQL and relational database
+spec:
+  type: database-service
+  owner: team-infra
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: azure-blob-storage
+  title: Azure Blob Storage
+  description: Azure Blob Storage is Microsoft's object storage solution for the cloud.
+spec:
+  type: storage-service
+  owner: team-infra
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: service-bus
+  title: Servive Bus
+  description: Azure Service Bus is a fully managed enterprise message broker with message queues and publish-subscribe topics.
+spec:
+  type: message-broker
+  owner: team-infra

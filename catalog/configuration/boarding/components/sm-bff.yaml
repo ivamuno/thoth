@@ -1,0 +1,24 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sm.onboarding.bff
+  title: SubMerchant Onboarding BFF
+  description: SubMerchant Onboarding BackendForFrontend API
+  links:
+    - url: https://github.com/orgs/getpaidio/projects/4/views/7?filterQuery=domain%3A%22Onboarding++%E2%9C%94%22
+      title: Backlog Tool
+      icon: dashboard
+  annotations:
+    backstage.io/adr-location: ./docs/adrs
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: team-dev
+  system: sm-boarding
+  dependsOn:
+    - component:onboarding-db
+    - component:onboardingdocuments-blob
+    - component:sm.onboarding.hop
+  providesApis:
+    - public-api

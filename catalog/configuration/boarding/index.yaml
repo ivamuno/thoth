@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: sm-boarding-spec
+  description: Boarding spec file
+spec:
+  targets:
+    - ./components/blob-storage.yaml
+    - ./components/cosmos.yaml
+    - ./components/sm-api.yaml
+    - ./components/sm-application.yaml
+    - ./components/sm-backoffice.yaml
+    - ./components/sm-bff.yaml
+    - ./components/sm-hop.yaml
+    - ./components/sm-webhooks-generator.yaml
+    - ./system.yaml

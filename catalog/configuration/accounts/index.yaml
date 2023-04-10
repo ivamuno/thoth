@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: account-spec
+  description: Accounts spec file
+spec:
+  targets:
+    - ./components/accounts.yaml
+    - ./components/sm-onboarding-consumer.yaml
+    - ./resources.yaml
+    - ./system.yaml

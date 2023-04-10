@@ -1,0 +1,39 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: onboarding-db
+  title: onboarding
+  description: Onboarding Database
+spec:
+  type: database
+  lifecycle: production
+  owner: team-infra
+  system: onboarding
+  dependsOn: 
+    - resource:cosmos-db
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: onboarding-db-events
+  title: onboarding-events
+  description: Onboarding Events Container
+spec:
+  type: database-container
+  lifecycle: production
+  owner: team-infra
+  dependsOn: 
+    - component:onboarding-db
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: onboarding-db-accounts
+  title: accounts
+  description: Accounts Container
+spec:
+  type: database-container
+  lifecycle: production
+  owner: team-infra
+  dependsOn: 
+    - component:onboarding-db

@@ -18,6 +18,9 @@
     "cy:run": "cypress run --browser chrome"
   },
   "dependencies": {
+    "@backstage-thoth/plugin-tech-insights": "^1.0.3",
+    "@backstage-thoth/plugin-tech-insights-common": "^1.0.4",
+    "@backstage-thoth/plugin-tech-insights-github-code-scanning-common": "^1.0.4",
     "@backstage/app-defaults": "^1.2.1",
     "@backstage/catalog-model": "^1.2.1",
     "@backstage/cli": "^0.22.4",
@@ -47,16 +50,19 @@
     "@backstage/plugin-techdocs-react": "^1.1.4",
     "@backstage/plugin-user-settings": "^0.7.1",
     "@backstage/theme": "^0.2.18",
-    "@backstage-thoth/plugin-tech-insights": "^1.0.3",
-    "@backstage-thoth/plugin-tech-insights-common": "^1.0.4",
-    "@backstage-thoth/plugin-tech-insights-github-code-scanning-common": "^1.0.4",
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.9.1",
+    "@types/swagger-ui-react": "^4.18.0",
     "history": "^5.0.0",
+    "mobx": "^6.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.3.0",
-    "react-use": "^17.2.4"
+    "react-use": "^17.2.4",
+    "redoc-asyncapi": "^2.1.0",
+    "styled-components": "^5.1.1",
+    "swagger-ui-react": "^4.18.2",
+    "yaml": "^2.2.1"
   },
   "devDependencies": {
     "@backstage/test-utils": "^1.2.6",

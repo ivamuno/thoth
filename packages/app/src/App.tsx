@@ -21,7 +21,11 @@ import {
   TechDocsReaderPage,
 } from '@backstage/plugin-techdocs';
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
-import { ExpandableNavigation, LightBox, ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
+import {
+  ExpandableNavigation,
+  LightBox,
+  ReportIssue,
+} from '@backstage/plugin-techdocs-module-addons-contrib';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
@@ -39,7 +43,7 @@ import { SignInPage } from '@backstage/core-components';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { customDarkTheme, customLightTheme } from './theme/customTheme';
 import { Entity } from '@backstage/catalog-model';
-import { MaturityPage } from '@internal/plugin-tech-insights-thoth';
+import { MaturityPage } from '@backstage-thoth/plugin-tech-insights';
 
 const app = createApp({
   apis,
@@ -72,38 +76,45 @@ const app = createApp({
       />
     ),
   },
-  themes: [{
-    id: 'customLightTheme',
-    title: 'Light Theme',
-    variant: 'light',
-    Provider: ({ children }) => (
-      <ThemeProvider theme={customLightTheme}>
-        <CssBaseline>{children}</CssBaseline>
-      </ThemeProvider>
-    ),
-  },{
-    id: 'customDarkTheme',
-    title: 'Dark Theme',
-    variant: 'dark',
-    Provider: ({ children }) => (
-      <ThemeProvider theme={customDarkTheme}>
-        <CssBaseline>{children}</CssBaseline>
-      </ThemeProvider>
-    ),
-  }]
+  themes: [
+    {
+      id: 'customLightTheme',
+      title: 'Light Theme',
+      variant: 'light',
+      Provider: ({ children }) => (
+        <ThemeProvider theme={customLightTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+    {
+      id: 'customDarkTheme',
+      title: 'Dark Theme',
+      variant: 'dark',
+      Provider: ({ children }) => (
+        <ThemeProvider theme={customDarkTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+  ],
 });
 
 const scaffolderGroups = [
   {
-    title: "Recommended",
-    filter: (entity: Entity) => entity?.metadata?.tags?.includes('recommended') ?? false,
+    title: 'Recommended',
+    filter: (entity: Entity) =>
+      entity?.metadata?.tags?.includes('recommended') ?? false,
   },
 ];
 
 const routes = (
   <FlatRoutes>
     <Route path="/" element={<Navigate to="catalog" />} />
-    <Route path="/catalog" element={<CatalogIndexPage />} />
+    <Route
+      path="/catalog"
+      element={<CatalogIndexPage initiallySelectedFilter='starred' />}
+    />
     <Route
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
@@ -123,7 +134,10 @@ const routes = (
         <LightBox />
       </TechDocsAddons>
     </Route>
-    <Route path="/create" element={<ScaffolderPage groups={scaffolderGroups} />} />
+    <Route
+      path="/create"
+      element={<ScaffolderPage groups={scaffolderGroups} />}
+    />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/tech-radar"

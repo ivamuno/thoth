@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: accounts
+  description: Accounts Desc
+  links:
+    - url: https://github.com/orgs/getpaidio/projects/4/views/7?filterQuery=domain%3A%22Accounts+%F0%9F%93%92%22
+      title: Backlog Tool
+      icon: dashboard
+spec:
+  owner: team-dev
+  domain: configuration
